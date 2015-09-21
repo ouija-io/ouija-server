@@ -1,0 +1,45 @@
+{
+  "name": "ghost-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "blipp": "^2.3.0",
+    "confidence": "^1.4.1",
+    "glue": "^2.3.0",
+    "hapi": "^10.0.0",
+    "hapi-sequelized": "^2.1.5",
+    "inert": "^3.0.1",
+    "lodash": "^3.10.1",
+    "nes": "^1.0.0",
+    "pg": "^4.4.2",
+    "pg-hstore": "^2.3.2"
+  },
+  "devDependencies": {
+    "babelify": "^6.3.0",
+    "browser-sync": "^2.9.3",
+    "browserify": "^11.1.0",
+    "gulp": "^3.9.0",
+    "gulp-exec": "^2.1.1",
+    "gulp-nodemon": "^2.0.4",
+    "gulp-notify": "^2.2.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^2.0.4",
+    "gulp-sourcemaps": "^1.5.2",
+    "gulp-uglify": "^1.4.1",
+    "gulp-util": "^3.0.6",
+    "hapi-auth-basic": "^3.0.0",
+    "node-env-file": "^0.1.7",
+    "node-neat": "^1.7.2",
+    "pretty-hrtime": "^1.0.0",
+    "reactify": "^1.1.1",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.1.0",
+    "watchify": "^3.4.0"
+  }
+}
