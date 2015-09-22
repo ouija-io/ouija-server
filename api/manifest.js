@@ -27,9 +27,7 @@ var manifest = {
     nes: {},
     inert: {},
     blipp: {},
-    'hapi-sequelized': {
-      sequelize: Config.get('/sequelize')
-    },
+    'hapi-sequelized': Config.get('/db'),
     './api/static/static-routes': {},
     './api/threads/thread-routes': {},
     './api/comments/comment-routes': {}

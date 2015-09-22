@@ -1,9 +1,11 @@
 
 'use strict'
 
-let handler = require('./thread-handlers')
+const Handler = require('./thread-handlers')
 
 exports.register = function (server, options, next) {
+
+  let handler = new Handler(server, options)
 
   server.route([
     {

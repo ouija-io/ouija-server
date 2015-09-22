@@ -2,7 +2,7 @@
 'use strict'
 
 let Glue = require('glue');
-let Manifest = require('./api/manifest');
+let Manifest = require('./api/manifest')
 
 let composeOptions = { relativeTo: __dirname }
 

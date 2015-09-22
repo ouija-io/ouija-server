@@ -1,15 +1,17 @@
 
 'use strict'
 
-let handler = require('./comment-handlers')
+const Handler = require('./comment-handlers')
 
 exports.register = function (server, options, next) {
+
+  let handler = new Handler(server, options)
 
   server.route([
     {
       method: 'GET',
       path: '/threads/{threadKey}/comments',
-      config: { handler: handler.getComments, id: 'getcomments' }
+      config: { handler: handler.getComments, id: 'getComments' }
     },
     {
       method: 'POST',
