@@ -4,18 +4,16 @@
 let Confidence = require('confidence')
 let Config = require('./config')
 
-var criteria = { env: process.env.NODE_ENV }
+let criteria = { env: process.env.NODE_ENV }
 
-var manifest = {
-  $meta: 'This file defines the plot device.',
+let manifest = {
+  $meta: 'ouija-api manifest',
   server: {
     debug: {
       request: ['error']
     },
     connections: {
-      routes: {
-         security: true
-      },
+      routes: { security: true },
       router: { stripTrailingSlash: true }
     }
   },
@@ -37,7 +35,7 @@ var manifest = {
   }
 }
 
-var store = new Confidence.Store(manifest)
+let store = new Confidence.Store(manifest)
 
 exports.get = function (key) {
   return store.get(key, criteria)

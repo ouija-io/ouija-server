@@ -21,19 +21,22 @@ class CommentHandler {
   createComment (request, reply) {
 
     let server = this.server
+    let userKey = request.auth.credentials.key
+
+    _.merge(request.payload, { UserKey: userKey })
 
     this.models.Comment
       .create(request.payload)
       .then(function (comment) {
         let rawComment = comment.get({ plain: true })
-        console.log(`/threads/${rawComment.ThreadKey}/comments`)
+
         server.publish(`/threads/${rawComment.ThreadKey}/comments`, rawComment)
         reply(rawComment)
       })
       .catch(function (err) {
         let error = Boom.badRequest(err.message)
 
-        error.output.statusCode = 400;    // Assign a custom error code
+        error.output.statusCode = 400
         error.reformat()
 
         reply(error)
@@ -46,7 +49,6 @@ class CommentHandler {
     let where = {}
 
     where.ThreadKey = threadKey
-    // let where = _.pick(request.query, ['threadKey']) || {}
 
     this.models.Comment
       .findAll({ raw: true, where: where })
@@ -54,7 +56,7 @@ class CommentHandler {
       .catch(function (err) {
         let error = Boom.badRequest(err.message)
 
-        error.output.statusCode = 500;    // Assign a custom error code
+        error.output.statusCode = 500
         error.reformat()
 
         reply(error)
@@ -72,7 +74,7 @@ class CommentHandler {
 
         let error = Boom.badRequest(`No Comment with key: ${commentKey}` )
 
-        error.output.statusCode = 404;    // Assign a custom error code
+        error.output.statusCode = 404
         error.reformat()
 
         reply(error)
@@ -80,7 +82,7 @@ class CommentHandler {
       .catch(function (err) {
         let error = Boom.badRequest(err.message)
 
-        error.output.statusCode = 500;    // Assign a custom error code
+        error.output.statusCode = 500
         error.reformat()
 
         reply(error)

@@ -12,8 +12,30 @@ class AuthHandlers {
     this.models = server.plugins['hapi-sequelized'].db.sequelize.models
     this.server = server
 
+    this.register = this.register.bind(this)
     this.login = this.login.bind(this)
     this.validate = this.validate.bind(this)
+  }
+
+  register (request, reply) {
+    let token = jwt.sign({
+      scope: ['guest'],
+      screen_name: 'Guest',
+      id: 0
+    }, 'cradle84')
+
+    var cookie_options = {
+      ttl: 365 * 24 * 60 * 60 * 1000, // expires a year from today
+      encoding: 'none',    // we already used JWT to encode
+      isSecure: true,      // warm & fuzzy feelings
+      isHttpOnly: true,    // prevent client alteration
+      clearInvalid: false, // remove invalid cookies
+      strictHeader: true   // don't allow violations of RFC 6265
+    }
+
+    reply({ token: token })
+      .header("Authorization", token)
+      .state("token", token, cookie_options)
   }
 
   login (request, reply) {
@@ -52,13 +74,28 @@ class AuthHandlers {
   }
 
   validate (decoded, request, callback) {
+    if (_.contains(decoded.scope, 'guest')) {
+      return callback(null, true)
+    }
+
+    console.log(decoded)
 
     this.models.User
       .findOne({ raw: true, where: { id: decoded.id } })
       .then(function(user) {
+        if (!user) {
+          let error = Boom.badRequest('Authentication failed')
+
+          error.output.statusCode = 401;
+          error.reformat()
+
+          return callback(error)
+        }
+
+        user.scope = ['admin']
         callback(null, true, user);
       })
-      .catch(function() {
+      .catch(function(err) {
         let error = Boom.badRequest(err.message)
 
         error.output.statusCode = 400;

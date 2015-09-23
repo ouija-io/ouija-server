@@ -13,27 +13,47 @@ exports.register = function (server, options, next) {
     {
       method: 'GET',
       path: '/threads/{threadKey}/comments',
-      config: { handler: handler.getComments, id: 'getComments' }
+      config: {
+        auth: { scope: [ 'guest', 'member', 'admin' ] },
+        handler: handler.getComments,
+        id: 'getComments'
+      }
     },
     {
       method: 'POST',
       path: '/comments',
-      config: { handler: handler.createComment, id: 'createComment' }
+      config: {
+        auth: { scope: [ 'member', 'admin' ] },
+        handler: handler.createComment,
+        id: 'createComment'
+      }
     },
     {
       method: 'GET',
       path: '/comments/{commentKey}',
-      config: { handler: handler.getComment, id: 'getComment' }
+      config: {
+        auth: { scope: [ 'guest', 'member', 'admin' ] },
+        handler: handler.getComment,
+        id: 'getComment'
+      }
     },
     {
       method: 'PUT',
       path: '/comments/{commentKey}',
-      config: { handler: handler.updateComment, id: 'updateComment' }
+      config: {
+        auth: { scope: [ 'admin' ] },
+        handler: handler.updateComment,
+        id: 'updateComment'
+      }
     },
     {
       method: 'DELETE',
       path: '/comments/{commentKey}',
-      config: { handler: handler.deleteComment, id: 'deleteComment' }
+      config: {
+        auth: { scope: [ 'admin' ] },
+        handler: handler.deleteComment,
+        id: 'deleteComment'
+      }
     }
   ])
 

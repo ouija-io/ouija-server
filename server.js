@@ -11,6 +11,7 @@ Composer(function (err, server) {
   let models = db.sequelize.models
 
   models.Thread.hasMany(models.Comment)
+  models.User.hasMany(models.Comment)
   models.Comment.belongsTo(models.Thread)
 
   db.sequelize
@@ -19,6 +20,6 @@ Composer(function (err, server) {
     .catch(function(err) { throw err })
 
   function onServerStart() {
-      console.log('The Ouija API has started on port ' + server.info.port)
+    console.log('The Ouija API has started on port ' + server.info.port)
   }
 })

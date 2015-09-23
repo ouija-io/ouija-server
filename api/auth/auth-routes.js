@@ -14,27 +14,22 @@ exports.register = function (server, options, next) {
     validateFunc: handler.validate
   })
 
+  server.auth.default('jwt')
+
   server.route([
     {
       method: ['GET', 'POST'],
       path: '/auth/login',
       config: { auth: 'twitter', handler: handler.login }
+    },
+    {
+      method: 'POST',
+      path: '/auth/register',
+      config: { auth: false, handler: handler.register }
     }
   ])
 
-  server.route({
-      method: ['GET', 'POST'],
-      path: '/done',
-      config: {
-          auth: 'jwt',
-          handler: function (request, reply) {
-              return reply(request.auth.credentials)
-          }
-      }
-  });
-
   next()
-
 }
 
 exports.register.attributes = { name: 'auth' }

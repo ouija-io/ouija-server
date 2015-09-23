@@ -11,27 +11,47 @@ exports.register = function (server, options, next) {
     {
       method: 'GET',
       path: '/threads',
-      config: { handler: handler.getThreads, id: 'getThreads' }
+      config: {
+        auth: { scope: 'guest' },
+        handler: handler.getThreads,
+        id: 'getThreads'
+      }
     },
     {
       method: 'POST',
       path: '/threads',
-      config: { handler: handler.createThread, id: 'createThread' }
+      config: {
+        auth: { scope: [ 'member', 'admin' ] },
+        handler: handler.createThread,
+        id: 'createThread'
+      }
     },
     {
       method: 'GET',
       path: '/threads/{threadKey}',
-      config: { handler: handler.getThread, id: 'getThread' }
+      config: {
+        auth: { scope: [ 'guest' ,'member', 'admin' ] },
+        handler: handler.getThread,
+        id: 'getThread'
+      }
     },
     {
       method: 'PUT',
       path: '/threads/{threadKey}',
-      config: { handler: handler.updateThread, id: 'updateThread' }
+      config: {
+        auth: { scope: [ 'admin' ] },
+        handler: handler.updateThread,
+        id: 'updateThread'
+      }
     },
     {
       method: 'DELETE',
       path: '/threads/{threadKey}',
-      config: { handler: handler.deleteThread, id: 'deleteThread' }
+      config: {
+        auth: { scope: [ 'admin' ] },
+        handler: handler.deleteThread,
+        id: 'deleteThread'
+      }
     }
   ])
 
