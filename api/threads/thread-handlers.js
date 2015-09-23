@@ -7,6 +7,7 @@ const Boom = require('boom')
 class ThreadHandler {
 
   constructor (server, options) {
+
     this.models = server.plugins['hapi-sequelized'].db.sequelize.models
 
     this.createThread = this.createThread.bind(this)
@@ -34,6 +35,8 @@ class ThreadHandler {
   }
 
   getThreads (request, reply) {
+
+    console.log('doing stuff?')
 
     let where = _.pick(request.query, ['postKey']) || {}
 

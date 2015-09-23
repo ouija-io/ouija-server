@@ -7,6 +7,8 @@ exports.register = function (server, options, next) {
 
   let handler = new Handler(server, options)
 
+  server.subscription('/threads/{threadKey}/comments')
+
   server.route([
     {
       method: 'GET',

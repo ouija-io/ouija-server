@@ -7,7 +7,9 @@ const Boom = require('boom')
 class CommentHandler {
 
   constructor (server, options) {
+
     this.models = server.plugins['hapi-sequelized'].db.sequelize.models
+    this.server = server
 
     this.createComment = this.createComment.bind(this)
     this.getComments = this.getComments.bind(this)
@@ -18,10 +20,15 @@ class CommentHandler {
 
   createComment (request, reply) {
 
+    let server = this.server
+
     this.models.Comment
       .create(request.payload)
       .then(function (comment) {
-        reply(comment.get({ plain: true }))
+        let rawComment = comment.get({ plain: true })
+        console.log(`/threads/${rawComment.ThreadKey}/comments`)
+        server.publish(`/threads/${rawComment.ThreadKey}/comments`, rawComment)
+        reply(rawComment)
       })
       .catch(function (err) {
         let error = Boom.badRequest(err.message)

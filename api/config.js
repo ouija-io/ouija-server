@@ -21,6 +21,14 @@ let config = {
     production: parseInt(process.env.PORT, 10),
     $default: 3000
   },
+  strategies: {
+    twitter: {
+      provider: 'twitter',
+      password: 'cookie_encryption_password',
+      clientId: 'HVCdUdlA149XDMXGFwSGNw',
+      clientSecret: 'TbQgVFm4uzNsA7vIuW34oyr41FD4CKoCnNGXnKpolw',
+    }
+  },
   db: {
     models: 'api/**/*-model.js',
     database: postgres && postgres[5],

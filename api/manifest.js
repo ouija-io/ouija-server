@@ -24,10 +24,13 @@ var manifest = {
     labels: ['api']
   }],
   plugins: {
+    bell: {},
+    'hapi-auth-jwt2': {},
     nes: {},
     inert: {},
     blipp: {},
     'hapi-sequelized': Config.get('/db'),
+    './api/auth/auth-routes': Config.get('/strategies'),
     './api/static/static-routes': {},
     './api/threads/thread-routes': {},
     './api/comments/comment-routes': {}
